@@ -1,16 +1,13 @@
-def solution(nums='',target=float('-inf')):
+def solution(arr='',target=float('-inf')):
     if target==float('-inf'):return -1
-    if nums=='':return -1
-    left = 0
-    right = len(nums)-1
-
-    while left<=right:
-        mid = (left+right)//2
-        if nums[mid]==target:
-            return mid
-        elif nums[mid]>target:
-            right = mid-1
+    mid = len(arr) // 2
+    if len(arr) == 1:
+        return mid if arr[mid] == target else None
+    elif arr[mid] == target:
+        return mid
+    else:
+        if arr[mid] < target:
+            callback_response = solution((arr[mid:]), target)
+            return mid + callback_response if callback_response is not None else None
         else:
-            left = mid+1
-
-    return -1
+            return solution((arr[:mid]), target)
